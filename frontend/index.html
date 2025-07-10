@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>URL Shortener</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h2>🌐 URL Shortener</h2>
+    <input type="text" id="longUrl" placeholder="Enter long URL">
+    <button onclick="shorten()">Shorten</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    async function shorten() {
+      const longUrl = document.getElementById('longUrl').value;
+      const res = await fetch('/api/shorten', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ longUrl })
+      });
+      const data = await res.json();
+      document.getElementById('result').innerText = data.shortUrl;
+    }
+  </script>
+</body>
+</html>
